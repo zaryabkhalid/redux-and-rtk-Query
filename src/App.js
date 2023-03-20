@@ -1,25 +1,33 @@
-import logo from './logo.svg';
-import './App.css';
+import { Routes, Route } from "react-router-dom";
+import HomePage from "./pages/HomePage";
+import ViewPost from "./features/posts/ViewPost";
+import AddPost from "./features/posts/AddPost";
+import FeaturedPosts from "./features/posts/FeaturedPosts";
+import Layout from "./components/Layout";
+import Pagination from "./features/posts/Pagination";
+import PostsLayout from "./features/posts/PostsLayout";
+import EditPost from "./features/posts/EditPost";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+	return (
+		<Routes>
+			<Route path="/" element={<Layout />}>
+				<Route index element={<HomePage />} />
+
+				<Route path="posts">
+					<Route index element={<FeaturedPosts />} />
+					<Route path="post/:postId" element={<ViewPost />} />
+					<Route path="post/:postId/edit" element={<EditPost />} />
+				</Route>
+				<Route path="post/new" element={<AddPost />} />
+
+				<Route path="pagination" element={<PostsLayout />}>
+					<Route index element={<Pagination />} />
+				</Route>
+			</Route>
+			{/* <Route path="*" /> */}
+		</Routes>
+	);
 }
 
 export default App;
